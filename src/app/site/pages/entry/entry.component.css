@@ -1,0 +1,43 @@
+.tab {
+	padding: 15px;
+	border: 1px solid rgba(155, 150, 150, 0.68);
+	border-radius: 9px;
+    position: relative;
+    font-family: inter;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    background-color: #00000000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.tab:hover {
+    color: #BE0000;
+    border-color: #BE0000;
+    transition: all .50s;
+} 
+
+.tab h3 {
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.tab .col-12 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1rem !important;
+    }
+
+.tab.active {
+    border: 1px solid #BE0000;
+    color: #BE0000;
+}
+
+.top-right {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}

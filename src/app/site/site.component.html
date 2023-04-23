@@ -1,2 +1,12 @@
-<a [routerLink]="['/dashboard/105']" routerLinkActive="router-link-active">go to dashboard</a>
-<p>site works!</p>
+<div class="col-12 col-md-6 p-4 ps-5">
+  <div class="row justify-content-center">
+    <a [routerLink]="['/login']" class="col-6" routerLinkActive="router-link-active">login</a>
+    <a [routerLink]="['/register']" [skipLocationChange]="true" class="col-6">sign
+      up</a>
+  </div>
+</div>
+
+<div class="container text-start ps-0">
+  <h1>Welcome to Sprint Jobs</h1>
+  <h2>Work in progress...</h2>
+</div>

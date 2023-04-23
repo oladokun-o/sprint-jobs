@@ -1,0 +1,72 @@
+<div class="container-fluid px-0">
+  <div class="row">
+    <div class="col-md-4 col-lg-6 p-0 m-0 d-md-block d-none bg-image" style="background-image: url(assets/images/bg-banner.png);">
+    </div>
+    <div
+      class="bg px-4 px-md-5 col-12 col-md-8 col-lg-6 position-relative d-flex justify-content-center align-items-bottom flex-column flex-wrap">
+      <!--back button at the top left corner-->
+      <div class="position-absolute top-0 start-0 py-5 py-md-3 ps-4">
+        <a *ngIf="tab === 'entry'" class="red" [routerLink]="['/']">
+          <img src="assets/images/back.png" class="icon">
+          Go back
+        </a>
+        <a *ngIf="tab === 'select'" class="red" [routerLink]="['/']">
+          <img src="assets/images/logo.png" class="icon">
+        </a>
+      </div>
+      
+      <a *ngIf="tab === 'select'" class="red top-right py-5 py-md-4 top-0" style="right: 30px;" [routerLink]="['/']">
+        <img src="assets/images/back.png" class="icon">
+        Go back
+      </a>
+      
+      <div *ngIf="loaded && tab === 'entry'" class="col-12 p-0 d-flex justify-content-center align-items-center flex-column flex-wrap" 
+        [ngClass]="{'scale-in-center': loaded}">
+        <div class="col-12 col-md-10 col-lg-8 p-5">
+          <img class="p-5 pb-0" src="assets/images/logo.png" alt="Sprint Jobs">
+        </div>
+        <div class="col-12 mt-5 d-flex justify-content-center align-items-center flex-column flex-wrap">
+          <button type="button" (click)="changeTab('select')" [routerLink]="['./']" [queryParams]="{activeTab: 'select'}" class="primary-btn">
+            Get Started
+            <img src="assets/images/arrow-r.png" class="icon">
+          </button>
+          <small class="mt-1">Already have an account?
+            <a class="red" [routerLink]="['/login']">Sign in</a>
+          </small>
+        </div>
+      </div>
+
+      <div *ngIf="loaded && tab === 'select'" class="col-12 pt-5 px-md-5 mt-4" [ngClass]="{'scale-in-center': loaded}">
+        <div class="container-fluid">
+          <div class="row">
+            <a class="col-12 tab" [ngClass]="{'active': selection === 'hire'}" (click)="select('hire')">
+              <img *ngIf="selection !== 'hire'" src="assets/images/dot-grey.png" style="width: auto;" class="top-right">
+              <img *ngIf="selection === 'hire'" src="assets/images/dot-red.png" style="width: auto;" class="top-right">
+              <div class="col-12">
+                <h3>I Want to Hire Someone</h3>
+                <img src="assets/images/hire.png" style="width: auto;">
+              </div>
+            </a>
+            <a class="col-12 tab mt-4" [ngClass]="{'active': selection === 'earn'}" (click)="select('earn')">
+              <img *ngIf="selection !== 'earn'" src="assets/images/dot-grey.png" style="width: auto;" class="top-right">
+              <img *ngIf="selection === 'earn'" src="assets/images/dot-red.png" style="width: auto;" class="top-right">
+              <div class="col-12">
+                <h3>I Want to Earn <br class="d-block d-md-none"> Money</h3>
+                <img src="assets/images/earn.png" style="width: auto;">
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <div class="col-12 mt-5 d-flex justify-content-center align-items-center flex-column flex-wrap">
+          <button [disabled]="!selection" type="button" [routerLink]="['/register']" [queryParams]="{clientType: selection}" class="primary-btn">
+            Next
+          </button>
+          <small class="mt-2">Already have an account?
+            <a class="red" [routerLink]="['/login']">Sign in</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

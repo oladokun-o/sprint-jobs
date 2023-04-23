@@ -4,5 +4,10 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.tabCompletion": "on",
+		"editor.indentSize": "tabSize",
+		"editor.detectIndentation": true,
+		"editor.wrappingIndent": "indent"
+	}
 }

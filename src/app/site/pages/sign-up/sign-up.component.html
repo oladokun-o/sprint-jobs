@@ -1,0 +1,284 @@
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col-md-4 col-lg-6 p-0 m-0 d-md-block d-none bg-image"
+            style="background-image: url(assets/images/bg-banner.png);">
+        </div>
+        <div
+            class="bg px-4 py-5 py-md-3 px-md-5 col-12 col-md-8 col-lg-6 position-relative d-flex justify-content-start align-items-center flex-column flex-wrap">
+            <!--back button at the top left corner-->
+            <div class="position-absolute top-0 start-0 py-5 py-md-3 ps-4">
+                <a class="red" (click)="goBack()">
+                    <img src="assets/images/back.png" class="icon">
+                    Go back
+                </a>
+            </div>
+
+            <div class="container-fluid pt-4 head px-0">
+                <div class="col-auto">
+                    <div class="col-12  d-flex flex-wrap flex-column justify-content-start align-items-center">
+                        <img src="assets/images/register.png" style="width: 100px;" alt="">
+                    </div>
+                    <h4 class="heading-mont text-center mt-2">Join Sprint Jobs</h4>
+                    <article *ngIf="clientType === 'hire'" class="col-12" style="text-align: justify;">
+                        Join our freelance community to hire
+                        professional services, and connect with experts on Sprint Job's trusted platform.
+                    </article>
+                    <article *ngIf="clientType === 'earn'" class="col-12" style="text-align: justify;">
+                        Join our freelance community to earn offering your
+                        professional services, connect with customers, and get paid on Sprint Job's trusted platform.
+                    </article>
+                </div>
+            </div>
+
+            <div *ngIf="!formInitialized" class="container-fluid pt-5 px-md-5 mt-4"
+                [ngClass]="{'scale-in-center': !formInitialized}">
+                <div class="row">
+                    <button type="button" class="col-12 primary-btn">
+                        <i class="bi bi-facebook"></i>
+                        <span>Continue with Facebook</span>
+                    </button>
+                    <button type="button" class="col-12 primary-btn my-3">
+                        <i class="bi bi-google"></i>
+                        <span>Continue with Google</span>
+                    </button>
+                    <button type="button" class="col-12 primary-btn" (click)="initHireForm()">
+                        <i class="bi bi-envelope"></i>
+                        <span>Continue with Email</span>
+                    </button>
+                    <small class="mt-2 px-0" style="font-size: 13px;">
+                        By joining, you agree to Sprint Job's
+                        <a class="red" [routerLink]="['/terms']">terms of service</a>
+                    </small>
+                </div>
+            </div>
+
+            <div *ngIf="formInitialized && clientType === 'hire'"
+                class="container-fluid pt-4 px-0 mt-1 position-relative">
+                <div class="position-absolute top-0 start-0 ps-0 fade-in">
+                    <small class="red link" (click)="toggleFormInitialized(false)">
+                        <i class="bi bi-chevron-left"></i>
+                        Other ways to sign up
+                    </small>
+                </div>
+                <form *ngIf="hireForm" class="container-fluid px-0 pt-2" autocomplete="on" [formGroup]="hireForm"
+                    (submit)="submitHireForm()" [ngClass]="{'scale-in-center': formInitialized}">
+                    <div class="row">
+                        <div class="form-group col-12 col-md-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>First name</mat-label>
+                                <input type="text" matInput formControlName="firstName" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your first name">
+                                <mat-error
+                                    *ngIf="hireForm.get('firstName')?.hasError('minlength') && !hireForm.get('firstName')?.hasError('required')">
+                                    Please enter a valid name
+                                </mat-error>
+                                <mat-error *ngIf="hireForm.get('firstName')?.hasError('required')">
+                                    First name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Last name</mat-label>
+                                <input type="text" matInput formControlName="lastName" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your last name">
+                                <mat-error
+                                    *ngIf="hireForm.get('lastName')?.hasError('minlength') && !hireForm.get('lastName')?.hasError('required')">
+                                    Please enter a valid name
+                                </mat-error>
+                                <mat-error *ngIf="hireForm.get('lastName')?.hasError('required')">
+                                    Last name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12">
+                            <mat-form-field class="col-12">
+                                <mat-label>Email address</mat-label>
+                                <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your email address">
+                                <mat-error
+                                    *ngIf="hireForm.get('email')?.hasError('email') && !hireForm.get('email')?.hasError('required')">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="hireForm.get('email')?.hasError('required')">
+                                    Email address is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Password</mat-label>
+                                <input #pwd type="password" matInput formControlName="password"
+                                    [errorStateMatcher]="matcher" placeholder="Create a new password">
+                                <mat-error
+                                    *ngIf="hireForm.get('password')?.errors && !hireForm.get('password')?.hasError('required')">
+                                    <!--list all errors-->
+                                    <span *ngIf="hireForm.get('password')?.hasError('minlength')">
+                                        Password must be at least 8 characters long
+                                    </span>
+                                    <span *ngIf="hireForm.get('password')?.hasError('pattern')">
+                                        Password must contain at least one uppercase letter, one lowercase letter,
+                                        and one number
+                                    </span>
+                                    <span *ngIf="hireForm.get('password')?.hasError('space')">
+                                        Password cannot contain spaces
+                                    </span>
+                                </mat-error>
+                                <mat-error *ngIf="hireForm.get('password')?.hasError('required')">
+                                    Password is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Confirm Password</mat-label>
+                                <input #conpwd type="password" matInput formControlName="confirmPassword"
+                                    [errorStateMatcher]="matcher" placeholder="Confirm your new password">
+                                <mat-error *ngIf="hireForm.get('confirmPassword')?.errors">
+                                    <span *ngIf="hireForm.get('confirmPassword')?.hasError('required')">
+                                        Confirm password is <strong>required</strong>
+                                    </span>
+                                    <span *ngIf="hireForm.get('confirmPassword')?.hasError('notSame')">
+                                        {{hireForm.get('confirmPassword')?.getError('notSame').message}}
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12 pt-4">
+                            <mat-checkbox (change)="togglePasswordVisibility(pwd);togglePasswordVisibility(conpwd)">Show
+                                password</mat-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4 d-flex justify-content-center align-items-center flex-column flex-wrap">
+                        <button [disabled]="!hireForm.dirty && !hireForm.valid" type="submit"
+                            class="primary-btn col-12 col-md-6">
+                            Sign Up
+                        </button><small class="mt-2 px-0" style="font-size: 13px;">
+                            By joining, you agree to Sprint Job's
+                            <a class="red" [routerLink]="['/terms']">terms of service</a>
+                        </small>
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="formInitialized && clientType === 'earn'"
+                class="container-fluid pt-4 px-0 mt-1 position-relative">
+                <div class="position-absolute top-0 start-0 ps-0 fade-in">
+                    <small class="red link" (click)="toggleFormInitialized(false)">
+                        <i class="bi bi-chevron-left"></i>
+                        Other ways to sign up
+                    </small>
+                </div>
+                <form *ngIf="earnForm" class="container-fluid px-0 pt-2" autocomplete="on" [formGroup]="earnForm"
+                    (submit)="submitEarnForm()" [ngClass]="{'scale-in-center': formInitialized}">
+                    <div class="row">
+                        <div class="form-group col-12 col-md-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>First name</mat-label>
+                                <input type="text" matInput formControlName="firstName" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your first name">
+                                <mat-error
+                                    *ngIf="earnForm.get('firstName')?.hasError('minlength') && !earnForm.get('firstName')?.hasError('required')">
+                                    Please enter a valid name
+                                </mat-error>
+                                <mat-error *ngIf="earnForm.get('firstName')?.hasError('required')">
+                                    First name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Last name</mat-label>
+                                <input type="text" matInput formControlName="lastName" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your last name">
+                                <mat-error
+                                    *ngIf="earnForm.get('lastName')?.hasError('minlength') && !earnForm.get('lastName')?.hasError('required')">
+                                    Please enter a valid name
+                                </mat-error>
+                                <mat-error *ngIf="earnForm.get('lastName')?.hasError('required')">
+                                    Last name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12">
+                            <mat-form-field class="col-12">
+                                <mat-label>Email address</mat-label>
+                                <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                                    placeholder="Enter your email address">
+                                <mat-error
+                                    *ngIf="earnForm.get('email')?.hasError('email') && !earnForm.get('email')?.hasError('required')">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="earnForm.get('email')?.hasError('required')">
+                                    Email address is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Password</mat-label>
+                                <input #pwd type="password" matInput formControlName="password"
+                                    [errorStateMatcher]="matcher" placeholder="Create a new password">
+                                <mat-error
+                                    *ngIf="earnForm.get('password')?.errors && !earnForm.get('password')?.hasError('required')">
+                                    <!--list all errors-->
+                                    <span *ngIf="earnForm.get('password')?.hasError('minlength')">
+                                        Password must be at least 8 characters long
+                                    </span>
+                                    <span *ngIf="earnForm.get('password')?.hasError('pattern')">
+                                        Password must contain at least one uppercase letter, one lowercase letter,
+                                        and one number
+                                    </span>
+                                    <span *ngIf="earnForm.get('password')?.hasError('space')">
+                                        Password cannot contain spaces
+                                    </span>
+                                </mat-error>
+                                <mat-error *ngIf="earnForm.get('password')?.hasError('required')">
+                                    Password is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-6">
+                            <mat-form-field class="col-12">
+                                <mat-label>Confirm Password</mat-label>
+                                <input #conpwd type="password" matInput formControlName="confirmPassword"
+                                    [errorStateMatcher]="matcher" placeholder="Confirm your new password">
+                                <mat-error *ngIf="earnForm.get('confirmPassword')?.errors">
+                                    <span *ngIf="earnForm.get('confirmPassword')?.hasError('required')">
+                                        Confirm password is <strong>required</strong>
+                                    </span>
+                                    <span *ngIf="earnForm.get('confirmPassword')?.hasError('notSame')">
+                                        {{earnForm.get('confirmPassword')?.getError('notSame').message}}
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-12 pt-4">
+                            <mat-checkbox (change)="togglePasswordVisibility(pwd);togglePasswordVisibility(conpwd)">Show
+                                password</mat-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4 d-flex justify-content-center align-items-center flex-column flex-wrap">
+                        <button [disabled]="!earnForm.dirty && !earnForm.valid" type="submit"
+                            class="primary-btn col-12 col-md-6">
+                            Sign Up
+                        </button><small class="mt-2 px-0" style="font-size: 13px;">
+                            By joining, you agree to Sprint Job's
+                            <a class="red" [routerLink]="['/terms']">terms of service</a>
+                        </small>
+                    </div>
+                </form>
+            </div>
+
+            <!--login button at the bottom left corner-->
+            <div class="position-absolute bottom-0 start-0 py-5 py-md-3 ps-4">
+                <a class="red" [routerLink]="['/login']">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    Sign in
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

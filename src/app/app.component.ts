@@ -1,3 +1,4 @@
+import { routeTransitionAnimations } from './utils/triggers/route-transition';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
