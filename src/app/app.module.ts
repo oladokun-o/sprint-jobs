@@ -10,6 +10,7 @@ import { ModalsModule } from './shared/modals/modals.module';
 import { PipesModule } from './shared/pipes/pipes.module';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './utils/modules/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MaterialModule } from './utils/modules/material.module';
     PipesModule,
     SharedModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

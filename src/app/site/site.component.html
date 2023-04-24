@@ -9,4 +9,24 @@
 <div class="container text-start ps-0">
   <h1>Welcome to Sprint Jobs</h1>
   <h2>Work in progress...</h2>
+  <div>
+    Users earning
+    <!--table showing users-->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <th scope="row">{{user.id}}</th>
+          <td>{{user.firstName}} {{user.lastName}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
